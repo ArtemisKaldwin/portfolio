@@ -78,11 +78,15 @@ header.nav {
   height: 64px;
 }
 header.nav .wrap { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-.brand { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+.brand { font-weight: 600; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; color: var(--text); text-decoration: none; }
 .brand span { color: var(--text-faint); font-weight: 400; }
 nav.links { display: flex; gap: 28px; align-items: center; }
-nav.links a { font-size: 14px; color: var(--text-muted); text-decoration: none; white-space: nowrap; }
+nav.links a {
+  font-size: 14px; color: var(--text-muted); text-decoration: none; white-space: nowrap;
+  padding: 21px 0; border-bottom: 2px solid transparent;
+}
 nav.links a:hover { color: var(--text); }
+nav.links a.active { color: var(--text); font-weight: 600; border-bottom-color: var(--accent); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
 .theme-toggle {
   width: 34px; height: 34px; border-radius: 999px; border: 1px solid var(--border);

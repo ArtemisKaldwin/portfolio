@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projets — Kawtar Belkacemi</title>
+<meta name="description" content="Onze projets Data Analyst narrés : contexte, besoin métier, démarche, résultats et limites.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">Kawtar Belkacemi <span>· Data Analyst</span></a>
+    <nav class="links">
+      <a href="index.html">Accueil</a>
+      <a href="competences.html">Compétences</a>
+      <a href="veille.html">Veille</a>
+      <a href="projets.html" class="active">Projets</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer de thème">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg>
+      </button>
+      <a class="nav-cta" href="mailto:kawtar.belkacemi@gmail.com">Me contacter</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="projets" class="no-border">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Projets</h2>
+        <p>Cinq preuves détaillées, présentées comme devant un client ou un recruteur, puis sept projets complémentaires qui élargissent le panorama d'outils.</p>
+      </div>
+
+      <p class="tier-label">Preuves phares</p>
+
+      <!-- P12 -->
+      <article class="proof-card reveal">
+        <div class="proof-card-head">
+          <div>
+            <h3>Détection de faux billets par machine learning</h3>
+            <p class="ctx">Mission pour l'ONCFM : construire un outil de classification vrai/faux billet à partir de mesures géométriques, livré sous forme de script réutilisable.</p>
+          </div>
+          <div class="links-col">
+            <div class="tool-badges">
+              <span class="badge">Python</span><span class="badge">scikit-learn</span><span class="badge">ML</span>
+            </div>
+            <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p12-detection-faux-billets" target="_blank" rel="noopener">Voir le code →</a>
+          </div>
+        </div>
+        <div class="proof-body">
+          <div class="proof-col">
+            <h4>Données</h4>
+            <p>1 500 billets, 6 dimensions géométriques (longueur, marges, hauteurs, diagonale). 37 valeurs manquantes sur une variable (2,5%), imputées par régression Random Forest sans fuite de données.</p>
+          </div>
+          <div class="proof-col">
+            <h4>Démarche</h4>
+            <p>Trois modèles comparés (régression logistique, KNN, forêt aléatoire) avec validation croisée à 5 plis. Optimisation des hyperparamètres par recherche sur grille, priorité donnée au recall sur les faux billets plutôt qu'à l'accuracy globale.</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b>99%</b><span>Recall sur les faux billets</span></div>
+          <div class="stat"><b>AUC 1,00</b><span>Sur validation croisée</span></div>
+          <div class="stat"><b>0%</b><span>Écart train / validation</span></div>
+          <div class="stat"><b>2</b><span>Fonctions livrées en script</span></div>
+        </div>
+        <p class="limits-line"><strong>Limites :</strong> jeu de données de taille modeste (1 500 billets) et 2,5% des valeurs imputées plutôt que mesurées ; une piste d'amélioration serait d'élargir l'échantillon avant mise en production.</p>
+      </article>
+
+      <!-- P4 -->
+      <article class="proof-card reveal">
+        <div class="proof-card-head">
+          <div>
+            <h3>Étude de sécurité alimentaire mondiale (données FAO)</h3>
+            <p class="ctx">Analyser la disponibilité alimentaire mondiale pour comprendre pourquoi la sous-nutrition persiste malgré une production théoriquement suffisante.</p>
+          </div>
+          <div class="links-col">
+            <div class="tool-badges">
+              <span class="badge">Python</span><span class="badge">pandas</span>
+            </div>
+            <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p04-etude-sante-publique" target="_blank" rel="noopener">Voir le code →</a>
+          </div>
+        </div>
+        <div class="proof-body">
+          <div class="proof-col">
+            <h4>Données</h4>
+            <p>Quatre tables FAO (population, disponibilité alimentaire, aide alimentaire, sous-nutrition), croisées par pays et année de référence 2017.</p>
+          </div>
+          <div class="proof-col">
+            <h4>Démarche</h4>
+            <p>Construction d'indicateurs de disponibilité calorique théorique, comparaison production réelle vs besoins, étude de cas ciblée (export de manioc thaïlandais) pour illustrer le paradoxe production-export-sous-nutrition.</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b>136%</b><span>De la population mondiale nourrissable avec la production actuelle</span></div>
+          <div class="stat"><b>7,1%</b><span>De la population mondiale sous-alimentée</span></div>
+          <div class="stat"><b>4,65%</b><span>Des ressources alimentaires perdues ou gaspillées</span></div>
+          <div class="stat"><b>9,0%</b><span>Sous-nutrition en Thaïlande malgré l'export</span></div>
+        </div>
+        <p class="limits-line"><strong>Limites :</strong> analyse descriptive et corrélative, sans test statistique formel ; les pays recevant le plus d'aide alimentaire ne correspondent pas directement aux pays les plus touchés, un écart qui mériterait une étude complémentaire.</p>
+      </article>
+
+      <!-- P9 -->
+      <article class="proof-card reveal">
+        <div class="proof-card-head">
+          <div>
+            <h3>Analyse des ventes d'une librairie en ligne</h3>
+            <p class="ctx">Croiser trois tables (clients, produits, transactions) pour identifier de vrais leviers commerciaux, en écartant les corrélations statistiquement significatives mais sans effet réel.</p>
+          </div>
+          <div class="links-col">
+            <div class="tool-badges">
+              <span class="badge">Python</span><span class="badge">SciPy</span><span class="badge">Statistiques</span>
+            </div>
+            <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p09-ventes-librairie" target="_blank" rel="noopener">Voir le code →</a>
+          </div>
+        </div>
+        <div class="proof-body">
+          <div class="proof-col">
+            <h4>Démarche</h4>
+            <p>Courbe de Lorenz pour isoler les clients atypiques avant analyse. Tests de normalité pour choisir entre Pearson et Spearman, puis Khi² et Kruskal-Wallis selon le type de variables croisées.</p>
+          </div>
+          <div class="proof-col">
+            <h4>Résultat clé</h4>
+            <p>Le lien entre genre et catégorie de livres achetés est statistiquement très significatif (p ≈ 2,5×10⁻³⁴) mais son intensité réelle est quasi nulle (V de Cramér = 0,015) : ne pas segmenter le marketing par genre sur ce critère.</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b>V=0,015</b><span>Cramér sur genre × catégorie, malgré p&lt;0,001</span></div>
+          <div class="stat"><b>r=0,071</b><span>Spearman âge/CA chez les 21-53 ans</span></div>
+          <div class="stat"><b>3</b><span>Tables sources jointes</span></div>
+          <div class="stat"><b>2</b><span>Segments d'âge aux comportements opposés</span></div>
+        </div>
+        <p class="limits-line"><strong>Limites :</strong> analyse corrélationnelle, aucune expérimentation contrôlée pour confirmer un lien de causalité entre âge et catégorie achetée.</p>
+      </article>
+
+      <!-- P11 -->
+      <article class="proof-card reveal">
+        <div class="proof-card-head">
+          <div>
+            <h3>Étude de marché export pour une filière avicole bio</h3>
+            <p class="ctx">Identifier, parmi 125 pays, les marchés à cibler en priorité pour l'export d'une entreprise française de poulet bio premium face à un marché domestique saturé.</p>
+          </div>
+          <div class="links-col">
+            <div class="tool-badges">
+              <span class="badge">Python</span><span class="badge">Clustering</span><span class="badge">ACP</span>
+            </div>
+            <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p11-etude-marche-export" target="_blank" rel="noopener">Voir le code →</a>
+          </div>
+        </div>
+        <div class="proof-body">
+          <div class="proof-col">
+            <h4>Données</h4>
+            <p>125 pays, 22 variables croisant Banque Mondiale (PIB, stabilité politique, corruption), FAO (consommation de viande, imports de poulet) et CEPII (distance à la France).</p>
+          </div>
+          <div class="proof-col">
+            <h4>Démarche</h4>
+            <p>ACP pour l'exploration (6 composantes, 80% de variance expliquée), puis KMeans à 6 groupes affiné par classification ascendante hiérarchique en 20 profils plus fins pour arbitrer entre le K statistiquement optimal et un découpage actionnable côté COMEX.</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b>14</b><span>Pays retenus en priorité (Europe de l'Ouest et du Nord)</span></div>
+          <div class="stat"><b>80,3%</b><span>De variance expliquée par l'ACP</span></div>
+          <div class="stat"><b>125</b><span>Pays analysés</span></div>
+          <div class="stat"><b>20</b><span>Profils de marché distingués</span></div>
+        </div>
+        <p class="limits-line"><strong>Limites :</strong> le nombre de clusters optimal au sens statistique (3) a été jugé trop grossier pour une décision commerciale ; le choix final (6, puis 20 sous-groupes) reste un arbitrage assumé plutôt qu'un optimum mathématique.</p>
+      </article>
+
+      <!-- P10 -->
+      <article class="proof-card reveal">
+        <div class="proof-card-head">
+          <div>
+            <h3>Dashboard de pilotage des réclamations clients</h3>
+            <p class="ctx">Projet mené en entreprise, en alternance chez Orange, et présenté en CODIR. L'un des projets internes menés sur ces deux ans, choisi ici car partageable ; d'autres, dont un dashboard de prévention santé au travail, ne le sont pas pour des raisons de confidentialité des données. Centraliser environ 47 000 réclamations clients sur six mois pour piloter les délais et les coûts de traitement.</p>
+          </div>
+          <div class="tool-badges">
+            <span class="badge pro">Mission Orange</span><span class="badge">Power BI</span>
+          </div>
+        </div>
+        <div class="proof-body">
+          <div class="proof-col">
+            <h4>Données</h4>
+            <p>Export GCP consolidé en modèle en étoile (canal, catégorie, produit, offre, technologie, géographie), avec un onglet dédié au suivi de la qualité des données (taux de valeurs manquantes).</p>
+          </div>
+          <div class="proof-col">
+            <h4>Démarche</h4>
+            <p>Dix pages construites autour des usages métier réels : synthèse, évolution, raisons de réclamation, suivi opérationnel, suivi géographique, suivi financier, et une page d'extraction pour l'export filtré.</p>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><b>47k</b><span>Réclamations centralisées</span></div>
+          <div class="stat"><b>330 659€</b><span>Coût total de traitement suivi</span></div>
+          <div class="stat"><b>~7€</b><span>Coût moyen par réclamation</span></div>
+          <div class="stat"><b>10</b><span>Pages de pilotage livrées</span></div>
+        </div>
+        <p class="limits-line"><strong>Limites :</strong> le canal téléphone concentre 30 000 des 47 000 réclamations, ce qui écrase la lisibilité des canaux secondaires. Une segmentation dédiée au canal serait la prochaine piste d'analyse.</p>
+      </article>
+
+      <p class="tier-label" style="margin-top:44px">Compléments</p>
+      <div class="compact-grid">
+
+        <div class="compact-card">
+          <div class="row1"><h4>Qualité de données pour une boutique en ligne</h4><span class="tool">Python + ML</span></div>
+          <p>Consolidation de trois sources (ERP, site web, table de liaison) pour une boutique de spiritueux, avec détection d'anomalies et analyse de rentabilité par référence. Repris dans un second temps pour une amélioration critique augmentée par l'IA : comparaison de trois méthodes de détection d'anomalies multivariées et ajout de tests de significativité statistique, avec traçabilité complète des choix et des essais.</p>
+          <p class="kpi">143 680€ de CA analysé · 19 anomalies stock/ventes invisibles à l'analyse de prix seule, détectées par Isolation Forest</p>
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p06-qualite-donnees-boutique" target="_blank" rel="noopener">Voir le code →</a>
+        </div>
+
+        <div class="compact-card">
+          <div class="row1"><h4>Indicateurs d'égalité femmes-hommes (RGPD)</h4><span class="tool">KNIME</span></div>
+          <p>Pipeline visuel d'anonymisation et d'agrégation RH pour calculer l'index légal d'égalité professionnelle, avec minimisation des données dès la conception.</p>
+          <p class="kpi">Score de 85/100, écart identifié dans le top 10 des rémunérations</p>
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p08-egalite-fh-rgpd" target="_blank" rel="noopener">Voir le code →</a>
+        </div>
+
+        <div class="compact-card">
+          <div class="row1"><h4>Dashboard de prévention santé au travail</h4><span class="tool">Mission Orange</span></div>
+          <p>Suivi des visites médicales et de leurs échéances, intégré à un dashboard de prévention présenté lors d'un audit sécurité (ISO 45001). Non détaillé ici : données trop sensibles pour être partagées publiquement.</p>
+          <p class="kpi">Salué comme point fort par les auditeurs</p>
+        </div>
+
+        <div class="compact-card">
+          <div class="row1"><h4>Dashboard de suivi de portefeuille de projets</h4><span class="tool">Power BI</span></div>
+          <p>Onze pages de pilotage multi-pays pour suivre budgets, délais et livrables d'un portefeuille de projets, avec cartographie et planning type Gantt.</p>
+          <p class="kpi">Suivi budgétaire, délais et couverture géographique en un seul outil</p>
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p07-dashboard-portefeuille-projets" target="_blank" rel="noopener">Voir le code →</a>
+        </div>
+
+        <div class="compact-card">
+          <div class="row1"><h4>Base de données relationnelle immobilière</h4><span class="tool">SQL</span></div>
+          <p>Conception d'un schéma relationnel à partir de données DVF et INSEE hétérogènes, avec contrôles d'intégrité et fiabilisation des identifiants géographiques.</p>
+          <p class="kpi">31 378 ventes structurées, écart de prix de 12% entre 2 et 3 pièces mis en évidence</p>
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p05-base-immobiliere-sql" target="_blank" rel="noopener">Voir le code →</a>
+        </div>
+
+        <div class="compact-card">
+          <div class="row1"><h4>Requêtage d'une base de contrats d'assurance</h4><span class="tool">SQL</span></div>
+          <p>Modélisation d'un schéma à deux tables reliées par clé étrangère, puis douze requêtes répondant à des questions métier concrètes (cotisation moyenne, surfaces, communes actives).</p>
+          <p class="kpi">30 335 contrats interrogés avec un schéma validé par contrôle d'intégrité</p>
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p03-requetage-sql-assurance" target="_blank" rel="noopener">Voir le code →</a>
+        </div>
+
+        <div class="compact-card">
+          <div class="row1"><h4>Analyse de ventes pour un e-commerce</h4><span class="tool">Excel</span></div>
+          <p>Rapport mensuel de suivi commercial après réorientation stratégique, avec analyse du taux de conversion et du comportement d'achat par catégorie.</p>
+          <p class="kpi">Taux de conversion identifié en baisse de 11% à 5% malgré la hausse du trafic</p>
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p02-analyse-ventes-ecommerce" target="_blank" rel="noopener">Voir le code →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Kawtar Belkacemi, Data Analyst</p>
+    <div class="foot-links">
+      <a href="mailto:kawtar.belkacemi@gmail.com">Email</a>
+      <a href="projets.html">Projets</a>
+      <a href="veille.html">Veille</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
