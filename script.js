@@ -116,7 +116,7 @@
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var w = 0, h = 0;
     var particles = [];
-    var COUNT = 130;
+    var COUNT = 0;   // orbes retirées : elles faisaient aquarium. Restent les puits de lumière.
     var mouse = { x: 0, y: 0 };
     var eased = { x: 0, y: 0 };
     var running = true;
@@ -370,7 +370,7 @@
    {y:"2018",period:"2018 → 2019",role:"Master Produire, diffuser, administrer, communiquer",org:"Université de Picardie Jules Verne",place:"Amiens",mention:"Mention assez bien",
     detail:"La conduite d'un projet culturel de bout en bout : budget, contrats, diffusion, communication.",
     gains:["Gestion de projet","Budget","Communication"]},
-   {y:"2021",period:"2021 → 2022",role:"Master Culture, patrimoine et innovation numérique",org:"Université de Picardie Jules Verne",place:"Amiens",mention:"Mention bien",
+   {y:"2021",period:"2021 → 2022",role:"Master Culture, patrimoine et innovation numérique",org:"Université de Picardie Jules Verne",place:"Amiens",mention:"Mention très bien",
     detail:"Menée en parallèle de l'activité chez Ginger. L'innovation numérique appliquée à un secteur qui n'y était pas préparé — la première fois que je me place entre un métier et une technologie.",
     gains:["Conduite du changement","Médiation technique","Innovation"]},
    {y:"2024",period:"2024 → 2026 · en cours",role:"MSc Data Analysis",org:"OpenClassrooms",place:"Diplôme américain accrédité",
