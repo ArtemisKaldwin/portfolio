@@ -56,8 +56,8 @@
       </div>
       <ul class="hero-meta">
         <li class="stat"><b>12</b><span>Projets présentés, rangés par ce qu'ils démontrent plutôt que par date.</span></li>
-        <li class="stat"><b>6</b><span>Outils pratiqués sur des cas réels : Python, SQL, Power BI, KNIME, BigQuery.</span></li>
-        <li class="stat"><b>99%</b><span>Des faux billets détectés : priorité donnée au recall, l'erreur coûteuse.</span></li>
+        <li class="stat"><b>6</b><span>Outils pratiqués sur des cas réels : Python, SQL, Power BI, KNIME, BigQuery, Excel.</span></li>
+        <li class="stat"><b>99&nbsp;%</b><span>Des faux billets détectés : priorité donnée au recall, l'erreur coûteuse.</span></li>
         <li class="stat"><b>2 ans</b><span>D'expérience en entreprise chez Orange France, sur de nombreux projets de pilotage par la donnée.</span></li>
       </ul>
     </div>
@@ -76,7 +76,7 @@
           <p>Je me suis formée au métier de Data Analyst chez OpenClassrooms, tout en travaillant deux ans comme data analyst chez Orange France, où j'ai contribué à de nombreux projets internes de pilotage par la donnée. Deux d'entre eux sont mis en avant ici : un dashboard de réclamations clients présenté en CODIR, et un dashboard de prévention santé au travail intégrant le suivi des visites médicales, salué comme un point fort par les auditeurs lors d'un audit sécurité (ISO 45001). Ce second projet ne figure pas en détail dans ce portfolio car il repose sur des données trop sensibles pour être partagées publiquement.</p>
           <p>J'aime particulièrement les projets où la donnée doit trancher un débat métier : un modèle est-il fiable, un écart est-il significatif ou anecdotique, quel marché prioriser. Mon approche reste rigoureuse sur la méthode (tests statistiques, validation croisée, contrôle qualité) sans perdre de vue que le livrable final s'adresse à des interlocuteurs non techniques.</p>
           <p>La formation m'a aussi donné l'occasion de sortir du triptyque nettoyage, requêtage, restitution en Power BI qui structure le quotidien en entreprise, en abordant le machine learning. Cette ouverture, soulignée par le jury lors de ma soutenance sur la détection de faux billets comme une vraie affinité pour le sujet, m'a donné envie d'aller plus loin dans cette direction : montrer, y compris devant un CODIR, qu'il existe d'autres façons de traiter la donnée qu'un dashboard.</p>
-          <p>Ce portfolio réunit douze projets hiérarchisés par ce qu'ils démontrent, pas par leur ordre chronologique. Chaque fiche suit la même trame : contexte, données, démarche, résultats, limites.</p>
+          <p>Ce portfolio réunit douze projets hiérarchisés par ce qu'ils démontrent, pas par leur ordre chronologique. Les six fiches détaillées suivent la même trame : contexte, données, démarche, résultats, limites.</p>
         </div>
         <div class="about-aside reveal">
           <h3 class="mono-label">Ce que je sais faire</h3>
@@ -186,7 +186,7 @@
           <ul>
             <li><b>Critère décisif :</b> disposer de tests adaptés au type de variable, et rejouables à l'identique.</li>
             <li><b>Excel</b> donne une moyenne et un écart-type ; <b>SciPy</b> donne le test qui correspond à la nature des données — Khi² sur des catégories, Spearman sur des rangs, ANOVA sur des groupes — et renvoie la p-value avec.</li>
-            <li><b>Point de vigilance :</b> une p-value significative avec un V de Cramér proche de zéro ne justifie aucune décision. La force du lien et sa fiabilité sont deux questions distinctes.</li>
+            <li><b>Point de vigilance :</b> un résultat significatif avec un V de Cramér proche de zéro ne justifie aucune décision. La force du lien et sa fiabilité sont deux questions distinctes.</li>
           </ul>
         </article>
         <article class="veille-card reveal">
@@ -201,7 +201,7 @@
       </div>
       <div class="veille-compare reveal">
         <h3 id="compare-titre">Trois méthodes face à face : la comparaison qui a tranché</h3>
-        <p>Le notebook d'origine ne repérait les valeurs aberrantes que sur le prix. Pour aller au-delà, trois méthodes ont été instruites, deux codées et exécutées sur les 825 références du catalogue, une écartée avant d'écrire du code.</p>
+        <p>Le notebook d'origine ne repérait les valeurs aberrantes que sur le prix. Pour aller au-delà, trois méthodes ont été instruites, deux codées et exécutées sur les 714 références disposant des trois variables, une écartée avant d'écrire du code.</p>
         <div class="table-scroll" tabindex="0" role="region" aria-labelledby="compare-titre">
           <table class="cmp">
             <caption class="sr-only">Comparaison de trois méthodes de détection d'anomalies sur cinq critères, avec la décision retenue pour chacune.</caption>
@@ -223,8 +223,8 @@
                 <td>7,94&nbsp;%</td>
                 <td>non mesuré</td></tr>
               <tr><th scope="row">Temps de calcul mesuré</th>
-                <td>46,9&nbsp;ms</td>
-                <td>1,7&nbsp;ms <span class="cmp-note">27 fois plus rapide, à rebours de la théorie</span></td>
+                <td>44,8&nbsp;ms</td>
+                <td>1,7&nbsp;ms <span class="cmp-note">26 fois plus rapide, à rebours de la théorie</span></td>
                 <td>non mesuré</td></tr>
               <tr><th scope="row">Réglages à justifier</th>
                 <td>1 <span class="cmp-note">le taux d'anomalies annoncé</span></td>
@@ -240,7 +240,7 @@
             </tbody>
           </table>
         </div>
-        <p class="cmp-read"><b>Ce que la comparaison m'a appris.</b> J'ai retenu Isolation Forest parce qu'elle retrouve ce que l'analyse existante désignait déjà et qu'elle n'a qu'un seul réglage à défendre — pas parce qu'elle est rapide. Le chronomètre dit l'inverse de la théorie : sur 825 lignes, l'avantage de complexité d'Isolation Forest ne se vérifie pas. Je garde ce résultat et je le signale plutôt que de l'écarter parce qu'il dérange. Ensemble, les deux méthodes retenues font apparaître <b>41 articles au prix parfaitement normal mais au couple stock-ventes atypique</b>, totalement invisibles à l'analyse d'origine.</p>
+        <p class="cmp-read"><b>Ce que la comparaison m'a appris.</b> J'ai retenu Isolation Forest parce qu'elle retrouve ce que l'analyse existante désignait déjà et qu'elle n'a qu'un seul réglage à défendre — pas parce qu'elle est rapide. Le chronomètre dit l'inverse de la théorie : sur 714 lignes, l'avantage de complexité d'Isolation Forest ne se vérifie pas. Je garde ce résultat et je le signale plutôt que de l'écarter parce qu'il dérange. Ensemble, les deux méthodes exécutées font apparaître <b>38 articles au prix parfaitement normal mais au couple stock-ventes atypique</b>, totalement invisibles à l'analyse d'origine.</p>
         <p class="cmp-links">
           <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p06-qualite-donnees-boutique">Le notebook et les livrables de cette comparaison</a>
         </p>
@@ -276,7 +276,7 @@
         <div class="proof-body">
           <div class="proof-col">
             <h4 class="mono-label">Données</h4>
-            <p>1 500 billets, 6 dimensions géométriques (longueur, marges, hauteurs, diagonale). 37 valeurs manquantes sur une variable (2,5%), imputées par régression Random Forest sans fuite de données.</p>
+            <p>1 500 billets, 6 dimensions géométriques (longueur, marges, hauteurs, diagonale). 37 valeurs manquantes sur une variable (2,5&nbsp;%), imputées par régression Random Forest sans fuite de données.</p>
           </div>
           <div class="proof-col">
             <h4 class="mono-label">Démarche</h4>
@@ -284,13 +284,13 @@
           </div>
         </div>
         <ul class="stat-row">
-          <li class="stat"><b>99%</b><span>Recall sur les faux billets</span></li>
+          <li class="stat"><b>99&nbsp;%</b><span>Recall sur les faux billets</span></li>
           <li class="stat"><b>AUC 1,00</b><span>Sur validation croisée</span></li>
-          <li class="stat"><b>0%</b><span>Écart train / validation</span></li>
+          <li class="stat"><b>0&nbsp;%</b><span>Écart train / validation</span></li>
           <li class="stat"><b>2</b><span>Fonctions livrées en script</span></li>
         </ul>
         <footer class="proof-foot">
-          <p class="limits-line"><strong>Limites :</strong> jeu de données de taille modeste (1 500 billets) et 2,5% des valeurs imputées plutôt que mesurées ; une piste d'amélioration serait d'élargir l'échantillon avant mise en production.</p>
+          <p class="limits-line"><strong>Limites :</strong> jeu de données de taille modeste (1 500 billets) et 2,5&nbsp;% des valeurs imputées plutôt que mesurées ; une piste d'amélioration serait d'élargir l'échantillon avant mise en production.</p>
           <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p12-detection-faux-billets" target="_blank" rel="noopener">Voir le code</a>
         </footer>
       </article>
@@ -318,10 +318,10 @@
           </div>
         </div>
         <ul class="stat-row">
-          <li class="stat"><b>136%</b><span>De la population mondiale nourrissable avec la production actuelle</span></li>
-          <li class="stat"><b>7,1%</b><span>De la population mondiale sous-alimentée</span></li>
-          <li class="stat"><b>4,65%</b><span>Des ressources alimentaires perdues ou gaspillées</span></li>
-          <li class="stat"><b>9,0%</b><span>Sous-nutrition en Thaïlande malgré l'export</span></li>
+          <li class="stat"><b>136&nbsp;%</b><span>De la population mondiale nourrissable avec la production actuelle</span></li>
+          <li class="stat"><b>7,1&nbsp;%</b><span>De la population mondiale sous-alimentée</span></li>
+          <li class="stat"><b>4,65&nbsp;%</b><span>Des ressources alimentaires perdues ou gaspillées</span></li>
+          <li class="stat"><b>9,0&nbsp;%</b><span>Sous-nutrition en Thaïlande malgré l'export</span></li>
         </ul>
         <footer class="proof-foot">
           <p class="limits-line"><strong>Limites :</strong> analyse descriptive et corrélative, sans test statistique formel ; les pays recevant le plus d'aide alimentaire ne correspondent pas directement aux pays les plus touchés, un écart qui mériterait une étude complémentaire.</p>
@@ -343,12 +343,16 @@
         </header>
         <div class="proof-body">
           <div class="proof-col">
+            <h4 class="mono-label">Données</h4>
+            <p>Trois tables à joindre : clients, produits, transactions. Les clients atypiques sont isolés par courbe de Lorenz <em>avant</em> les tests, pour qu'une poignée de gros acheteurs ne porte pas les corrélations.</p>
+          </div>
+          <div class="proof-col">
             <h4 class="mono-label">Démarche</h4>
-            <p>Courbe de Lorenz pour isoler les clients atypiques avant analyse. Tests de normalité pour choisir entre Pearson et Spearman, puis Khi² et Kruskal-Wallis selon le type de variables croisées.</p>
+            <p>Tests de normalité pour choisir entre Pearson et Spearman, puis Khi² et Kruskal-Wallis selon le type de variables croisées.</p>
           </div>
           <div class="proof-col">
             <h4 class="mono-label">Résultat clé</h4>
-            <p>Le lien entre genre et catégorie de livres achetés est statistiquement très significatif (p ≈ 2,5×10⁻³⁴) mais son intensité réelle est quasi nulle (V de Cramér = 0,015) : ne pas segmenter le marketing par genre sur ce critère.</p>
+            <p>Le lien entre genre et catégorie de livres achetés est statistiquement significatif (p ≈ 2,5×10⁻³⁴) mais son intensité réelle est quasi nulle (V de Cramér = 0,015) : ne pas segmenter le marketing par genre sur ce critère.</p>
           </div>
         </div>
         <ul class="stat-row">
@@ -382,12 +386,12 @@
           </div>
           <div class="proof-col">
             <h4 class="mono-label">Démarche</h4>
-            <p>ACP pour l'exploration (6 composantes, 80% de variance expliquée), puis KMeans à 6 groupes affiné par classification ascendante hiérarchique en 20 profils plus fins pour arbitrer entre le K statistiquement optimal et un découpage actionnable côté COMEX.</p>
+            <p>ACP pour l'exploration (6 composantes, 80&nbsp;% de variance expliquée), puis KMeans à 6 groupes affiné par classification ascendante hiérarchique en 20 profils plus fins pour arbitrer entre le K statistiquement optimal et un découpage actionnable côté COMEX.</p>
           </div>
         </div>
         <ul class="stat-row">
           <li class="stat"><b>14</b><span>Pays retenus en priorité (Europe de l'Ouest et du Nord)</span></li>
-          <li class="stat"><b>80,3%</b><span>De variance expliquée par l'ACP</span></li>
+          <li class="stat"><b>80,3&nbsp;%</b><span>De variance expliquée par l'ACP</span></li>
           <li class="stat"><b>125</b><span>Pays analysés</span></li>
           <li class="stat"><b>20</b><span>Profils de marché distingués</span></li>
         </ul>
@@ -421,8 +425,8 @@
         </div>
         <ul class="stat-row">
           <li class="stat"><b>47k</b><span>Réclamations centralisées</span></li>
-          <li class="stat"><b>330 659€</b><span>Coût total de traitement suivi</span></li>
-          <li class="stat"><b>~7€</b><span>Coût moyen par réclamation</span></li>
+          <li class="stat"><b>330 659&nbsp;€</b><span>Coût total de traitement suivi</span></li>
+          <li class="stat"><b>≈&nbsp;7&nbsp;€</b><span>Coût moyen par réclamation</span></li>
           <li class="stat"><b>10</b><span>Pages de pilotage livrées</span></li>
         </ul>
         <footer class="proof-foot">
@@ -442,7 +446,7 @@
         <div class="proof-body">
           <div class="proof-col">
             <h4 class="mono-label">Données</h4>
-            <p>825 références côté gestion, 714 actives côté site. 13,45 % des lignes ne se rejoignent pas après jointure : une limite structurelle, chiffrée et assumée plutôt que masquée. Prix négatifs et doublons de référence corrigés en amont.</p>
+            <p>825 références côté gestion, 714 actives côté site. 13,45&nbsp;% des lignes ne se rejoignent pas après jointure : une limite structurelle, chiffrée et assumée plutôt que masquée. Prix négatifs et doublons de référence corrigés en amont.</p>
           </div>
           <div class="proof-col">
             <h4 class="mono-label">Démarche</h4>
@@ -450,14 +454,14 @@
           </div>
           <div class="proof-col">
             <h4 class="mono-label">Résultat clé</h4>
-            <p>41 articles au prix parfaitement normal mais au couple stock-ventes atypique, invisibles à l'analyse d'origine. Et une conclusion de la version initiale qui bascule : entre stock et prix d'achat, un premier test conclut à l'absence de lien, un second en trouve un fort et fiable.</p>
+            <p>38 articles au prix parfaitement normal mais au couple stock-ventes atypique, invisibles à l'analyse d'origine. Et une conclusion de la version initiale qui bascule : entre stock et prix d'achat, un premier test ne détecte aucun lien, un second en trouve un fort et fiable.</p>
           </div>
         </div>
         <ul class="stat-row">
-          <li class="stat"><b>41</b><span>Anomalies révélées par deux méthodes comparées</span></li>
-          <li class="stat"><b>23,64%</b><span>Recoupement retenu comme critère de décision</span></li>
+          <li class="stat"><b>38</b><span>Anomalies révélées par deux méthodes comparées</span></li>
+          <li class="stat"><b>23,64&nbsp;%</b><span>Recoupement retenu comme critère de décision</span></li>
           <li class="stat"><b>94</b><span>Cellules exécutées, zéro erreur, en 5 secondes</span></li>
-          <li class="stat"><b>0€</b><span>Ni licence, ni infrastructure, ni prestataire</span></li>
+          <li class="stat"><b>0&nbsp;€</b><span>Ni licence, ni infrastructure, ni prestataire</span></li>
         </ul>
         <footer class="proof-foot">
           <p class="limits-line"><strong>Limites :</strong> le taux d'anomalies annoncé à l'algorithme est hérité de la méthode univariée — une hypothèse simplificatrice, explicitée. Sans vérité terrain, le recoupement entre méthodes ne dit pas laquelle a raison : ce sont des pistes d'investigation, pas des faits. Et la détection reste globale au catalogue, jamais par famille de produits.</p>
@@ -497,7 +501,7 @@
           <p class="compact-tool">SQL</p>
           <h4>Base de données relationnelle immobilière</h4>
           <p>Conception d'un schéma relationnel à partir de données DVF et INSEE hétérogènes, avec contrôles d'intégrité et fiabilisation des identifiants géographiques.</p>
-          <p class="kpi">31 378 ventes structurées, écart de prix de 12% entre 2 et 3 pièces mis en évidence</p>
+          <p class="kpi">31 378 ventes structurées, écart de prix de 12&nbsp;% entre 2 et 3 pièces mis en évidence</p>
           <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p05-base-immobiliere-sql" target="_blank" rel="noopener">Voir le code</a>
         </article>
 
@@ -513,7 +517,7 @@
           <p class="compact-tool">Excel</p>
           <h4>Analyse de ventes pour un e-commerce</h4>
           <p>Rapport mensuel de suivi commercial après réorientation stratégique, avec analyse du taux de conversion et du comportement d'achat par catégorie.</p>
-          <p class="kpi">Taux de conversion identifié en baisse de 11% à 5% malgré la hausse du trafic</p>
+          <p class="kpi">Taux de conversion identifié en baisse de 11&nbsp;% à 5&nbsp;% malgré la hausse du trafic</p>
           <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p02-analyse-ventes-ecommerce" target="_blank" rel="noopener">Voir le code</a>
         </article>
 
