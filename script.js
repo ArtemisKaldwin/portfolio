@@ -335,3 +335,150 @@
   })();
 
 })();
+
+/* ============================================================================
+   Parcours — roue chronologique pilotée par le scroll
+   ========================================================================== */
+(function(){
+  var sec = document.getElementById('parcours');
+  if (!sec) return;
+
+  var EXP = [
+   {y:"2016",period:"Octobre 2016 → aujourd'hui",role:"Fondatrice et directrice artistique",org:"Atelier Noctis",place:"Indépendante",
+    detail:"Une pratique créative indépendante — écriture, photographie, direction artistique — étendue au management d'artistes et au conseil. C'est de là qu'est signé le contrat d'UUHAI avec Napalm Records.",
+    gains:["Direction artistique","Écriture","Photographie","Autonomie","Développement d'artistes"]},
+   {y:"2019",period:"Janvier 2019 → août 2024",role:"Agent d'artistes et chargée de production et de tournées",org:"Ginger",place:"Amiens",
+    detail:"Seule agent et chargée de production pour EDGÄR, UUHAI et Sarah Olivier : booking, négociation de contrats, logistique de tournée. Production de la scène Tremplin Heroes Aesio au festival Retro C Trop — programmation menée par Patti Smith, Alice Cooper et Simple Minds. Production du festival Sama'Rock aux côtés du directeur technique.",
+    gains:["Négociation","Gestion de contrats","Logistique","Parties prenantes","Travail sous contrainte"]},
+   {y:"2024",period:"Septembre 2024 → septembre 2026",role:"Data Analyst",org:"Orange France",place:"Amiens",contract:"Alternance",
+    detail:"Dashboard Power BI du déploiement Fibre Pro conçu de zéro, avec dictionnaires de données et cadres d'indicateurs construits en ateliers avec les métiers. Module de suivi santé au travail cité comme point fort dans le rapport d'audit externe ISO 45001. Dashboard réclamations clients intégrant BigQuery et des API internes, présenté en CODIR. Formations internes Excel, IA générative et PowerPoint.",
+    gains:["Power BI","BigQuery / GCP","SQL","Recueil de besoin","Restitution en CODIR","Formation interne"]}
+  ];
+  var FORM = [
+   {y:"2012",period:"2012",role:"Baccalauréat scientifique",org:"Lycée Cadi Ayyad",place:"Marrakech",mention:"Mention assez bien",
+    detail:"Spécialité physique-chimie. Le socle scientifique — méthode, raisonnement, aisance avec les nombres — sur lequel tout le reste s'est construit, dix ans avant d'y revenir.",
+    gains:["Mathématiques","Physique-chimie","Raisonnement scientifique"]},
+   {y:"2014",period:"2014 → 2016",role:"Classe préparatoire aux grandes écoles",org:"Lycée Henri Martin",place:"Saint-Quentin",
+    detail:"Lettres, sciences humaines et sociales. Deux ans à lire vite, à trancher, et à défendre une thèse en temps contraint.",
+    gains:["Analyse critique","Synthèse","Argumentation","Endurance"]},
+   {y:"2016",period:"2016 → 2017",role:"Licence Cinéma et audiovisuel",org:"Université de Picardie Jules Verne",place:"Amiens",
+    detail:"L'analyse de l'image et la construction d'un récit — ce qui deviendra, bien plus tard, du data storytelling.",
+    gains:["Narration","Analyse de l'image","Montage"]},
+   {y:"2017",period:"2017 → 2018",role:"Master Arts numériques et médias",org:"Université de Picardie Jules Verne",place:"Amiens",
+    detail:"Théories et pratiques artistiques. Le numérique abordé comme un objet à interroger, pas seulement comme un outil à utiliser.",
+    gains:["Théorie critique","Pratiques numériques"]},
+   {y:"2018",period:"2018 → 2019",role:"Master Produire, diffuser, administrer, communiquer",org:"Université de Picardie Jules Verne",place:"Amiens",mention:"Mention assez bien",
+    detail:"La conduite d'un projet culturel de bout en bout : budget, contrats, diffusion, communication.",
+    gains:["Gestion de projet","Budget","Communication"]},
+   {y:"2021",period:"2021 → 2022",role:"Master Culture, patrimoine et innovation numérique",org:"Université de Picardie Jules Verne",place:"Amiens",mention:"Mention bien",
+    detail:"Menée en parallèle de l'activité chez Ginger. L'innovation numérique appliquée à un secteur qui n'y était pas préparé — la première fois que je me place entre un métier et une technologie.",
+    gains:["Conduite du changement","Médiation technique","Innovation"]},
+   {y:"2024",period:"2024 → 2026 · en cours",role:"MSc Data Analysis",org:"OpenClassrooms",place:"Diplôme américain accrédité",
+    detail:"Menée de front avec le poste chez Orange. Python, statistiques et machine learning — et douze projets qui constituent ce portfolio.",
+    gains:["Python","Statistiques","Machine learning","scikit-learn","Reproductibilité"]}
+  ];
+
+  var NS='http://www.w3.org/2000/svg', CX=350, CY=350, R=300, MARK=180;
+  var spin=document.getElementById('pkSpin'), lit=document.getElementById('pkLit');
+  var entry=document.getElementById('pkEntry');
+  var countEl=document.getElementById('pkCount'), totalEl=document.getElementById('pkTotal');
+  var gauge=document.getElementById('pkGauge'), gTxt=document.getElementById('pkTxt');
+  var bExp=document.getElementById('pkExp'), bForm=document.getElementById('pkForm');
+  var data=EXP, mode='exp', idx=-1;
+
+  function step(){ return 360/data.length; }
+  function pace(){ return mode==='exp' ? 0.85 : 0.5; }   // course de scroll par cran
+  function sizeZone(){ sec.style.height = ((data.length-1)*pace()+1)*100 + 'vh'; }
+
+  function esc(t){ var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+
+  function build(){
+    spin.innerHTML=''; entry.innerHTML='';
+    var st=step();
+    data.forEach(function(d,i){
+      var a=i*st*Math.PI/180, ux=Math.cos(a), uy=Math.sin(a);
+      var g=document.createElementNS(NS,'g');
+      var l=document.createElementNS(NS,'line');
+      l.setAttribute('x1',CX+ux*(R-16)); l.setAttribute('y1',CY+uy*(R-16));
+      l.setAttribute('x2',CX+ux*(R+16)); l.setAttribute('y2',CY+uy*(R+16));
+      l.setAttribute('class','pk-notch'); l.dataset.i=i; g.appendChild(l);
+      var r=document.createElementNS(NS,'line');
+      r.setAttribute('x1',CX+ux*95); r.setAttribute('y1',CY+uy*95);
+      r.setAttribute('x2',CX+ux*(R-30)); r.setAttribute('y2',CY+uy*(R-30));
+      r.setAttribute('stroke','rgba(172,122,153,.13)'); r.setAttribute('stroke-width','1'); g.appendChild(r);
+      var tg=document.createElementNS(NS,'g');
+      tg.setAttribute('transform','translate('+(CX+ux*(R+46))+' '+(CY+uy*(R+46))+')');
+      tg.dataset.upright='1';
+      var t=document.createElementNS(NS,'text');
+      t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
+      t.setAttribute('class','pk-ylab'); t.dataset.i=i; t.textContent=d.y;
+      t.addEventListener('click', function(){ jumpTo(i); });
+      tg.appendChild(t); g.appendChild(tg); spin.appendChild(g);
+
+      var art=document.createElement('article');
+      art.className='pk-item'; art.dataset.i=i;
+      art.innerHTML='<p class="pk-period">'+esc(d.period)+'</p>'+
+        '<h3>'+esc(d.role)+'</h3>'+
+        '<p class="pk-org"><b>'+esc(d.org)+'</b> · '+esc(d.place)+
+        (d.contract?' <span class="pk-contract">'+esc(d.contract)+'</span>':'')+'</p>'+
+        '<p class="pk-detail">'+esc(d.detail)+'</p>'+
+        (d.mention?'<span class="pk-mention">'+esc(d.mention)+'</span>':'')+
+        '<ul class="pk-gains">'+d.gains.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>';
+      entry.appendChild(art);
+    });
+    sizeZone();
+  }
+
+  function render(p){
+    var n=data.length, st=step();
+    var rot = MARK - p*(n-1)*st;
+    spin.setAttribute('transform','rotate('+rot+' '+CX+' '+CY+')');
+    Array.prototype.forEach.call(spin.querySelectorAll('[data-upright]'), function(g){
+      var base=g.getAttribute('transform').split('rotate')[0].trim();
+      g.setAttribute('transform', base+' rotate('+(-rot)+')');
+    });
+    var i=Math.min(n-1, Math.max(0, Math.round(p*(n-1))));
+    if (i!==idx){
+      idx=i;
+      Array.prototype.forEach.call(spin.querySelectorAll('.pk-notch'), function(e){ e.classList.toggle('on', +e.dataset.i===i); });
+      Array.prototype.forEach.call(spin.querySelectorAll('.pk-ylab'), function(e){ e.classList.toggle('on', +e.dataset.i===i); });
+      Array.prototype.forEach.call(entry.querySelectorAll('.pk-item'), function(e){ e.classList.toggle('on', +e.dataset.i===i); });
+      countEl.textContent=i+1;
+    }
+    totalEl.textContent='sur '+n;
+    var C=2*Math.PI*R, seg=C/n*0.52;
+    lit.style.strokeDasharray=seg+' '+(C-seg);
+    lit.style.strokeDashoffset=seg/2;
+    gauge.style.width=(p*100).toFixed(1)+'%';
+    gTxt.textContent=(i+1)+' / '+n;
+  }
+
+  function progress(){
+    var travel=sec.offsetHeight-window.innerHeight;
+    return Math.min(1, Math.max(0, (window.scrollY-sec.offsetTop)/Math.max(1,travel)));
+  }
+  function onScroll(){ render(progress()); }
+
+  function jumpTo(i){
+    var travel=sec.offsetHeight-window.innerHeight;
+    window.scrollTo({top: sec.offsetTop + travel*(i/(data.length-1)), behavior:'smooth'});
+  }
+
+  function setMode(m){
+    if (m===mode) return;
+    mode=m; data=(m==='exp')?EXP:FORM; idx=-1;
+    sec.style.setProperty('--pk-accent', m==='exp' ? 'var(--coral)' : 'var(--anemone)');
+    bExp.setAttribute('aria-pressed', m==='exp');
+    bForm.setAttribute('aria-pressed', m==='form');
+    build();
+    window.scrollTo({top: sec.offsetTop, behavior:'auto'});
+    render(0);
+  }
+  bExp.addEventListener('click', function(){ setMode('exp'); });
+  bForm.addEventListener('click', function(){ setMode('form'); });
+
+  window.addEventListener('scroll', function(){ requestAnimationFrame(onScroll); }, {passive:true});
+  window.addEventListener('resize', function(){ sizeZone(); onScroll(); });
+
+  build(); onScroll();
+})();
