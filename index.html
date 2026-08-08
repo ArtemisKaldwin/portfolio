@@ -175,28 +175,78 @@
           <h3>Du tableur au requêtage structuré</h3>
           <p>Les premiers projets (analyse e-commerce, bases immobilière et assurance) m'ont confrontée aux limites d'Excel dès que le volume ou les relations entre tables augmentent. Le passage à SQL et à un SGBD relationnel (MySQL) s'est imposé pour garantir l'intégrité des données via des clés primaires et étrangères plutôt que des recoupements manuels.</p>
           <ul>
-            <li>Critère de choix : capacité à imposer des contraintes d'intégrité, pas seulement à stocker</li>
-            <li>Outils comparés : Excel, MySQL Workbench, SQL Power Architect</li>
+            <li><b>Critère décisif :</b> imposer des contraintes d'intégrité, pas seulement stocker.</li>
+            <li><b>Excel</b> tolère qu'une même référence existe en deux orthographes dans deux onglets ; <b>MySQL</b> le refuse par une clé étrangère. C'est la seule différence qui comptait, et elle est structurelle.</li>
+            <li><b>SQL Power Architect</b> l'emporte sur un schéma dessiné à la main : le modèle génère le script de création, donc le diagramme ne peut pas diverger de la base.</li>
           </ul>
         </article>
         <article class="veille-card reveal">
           <h3>Python pour l'analyse statistique</h3>
           <p>Sur les projets de santé publique, de vente et de détection de fraude, un tableur ne permettait plus de répondre à la vraie question posée : une différence observée est-elle réelle ou due au hasard. pandas et SciPy ont remplacé les moyennes brutes par des tests adaptés au type de variable, avec un réflexe systématique de vérifier la taille d'effet en plus de la significativité.</p>
           <ul>
-            <li>Critère de choix : disponibilité de tests statistiques fiables et reproductibles (Khi², Spearman, ANOVA)</li>
-            <li>Point de vigilance retenu : un p-value significatif avec un V de Cramér proche de zéro ne justifie aucune décision métier</li>
+            <li><b>Critère décisif :</b> disposer de tests adaptés au type de variable, et rejouables à l'identique.</li>
+            <li><b>Excel</b> donne une moyenne et un écart-type ; <b>SciPy</b> donne le test qui correspond à la nature des données — Khi² sur des catégories, Spearman sur des rangs, ANOVA sur des groupes — et renvoie la p-value avec.</li>
+            <li><b>Point de vigilance :</b> une p-value significative avec un V de Cramér proche de zéro ne justifie aucune décision. La force du lien et sa fiabilité sont deux questions distinctes.</li>
           </ul>
         </article>
         <article class="veille-card reveal">
           <h3>Du diagnostic à la restitution décideur</h3>
           <p>KNIME et Power BI sont arrivés quand le livrable devait être compris par des non-techniciens (DRH, COMEX, CODIR) sans qu'ils rouvrent un notebook. KNIME a permis d'industrialiser un pipeline d'anonymisation RGPD de façon visuelle et auditable ; Power BI a permis de livrer un dashboard vivant plutôt qu'un rapport figé.</p>
           <ul>
-            <li>Critère de choix : lisibilité du pipeline pour un public non technique, traçabilité des étapes de transformation</li>
-            <li>Enjeu suivi de près : minimisation des données personnelles dès la conception (privacy by design)</li>
+            <li><b>Critère décisif :</b> qu'un tiers non technique puisse relire le traitement sans ouvrir de code.</li>
+            <li><b>KNIME</b> l'emporte sur un script Python équivalent pour l'anonymisation RGPD : chaque étape est un bloc visible et horodaté, donc auditable par quelqu'un qui ne lit pas Python. Le script serait plus court, mais opaque au contrôle.</li>
+            <li><b>Power BI</b> l'emporte sur un export figé parce que le destinataire filtre lui-même ; le prix à payer est un modèle de données à maintenir.</li>
           </ul>
         </article>
       </div>
-      <p class="veille-note reveal">Cette synthèse est issue de l'analyse de mes propres projets plutôt que d'un journal de veille tenu en continu. Une vraie routine de veille (sources suivies, newsletters, comparatifs d'outils émergents) reste une piste d'amélioration identifiée pour la suite de mon parcours.</p>
+      <div class="veille-compare reveal">
+        <h3 id="compare-titre">Trois méthodes face à face : la comparaison qui a tranché</h3>
+        <p>Le notebook d'origine ne repérait les valeurs aberrantes que sur le prix. Pour aller au-delà, trois méthodes ont été instruites, deux codées et exécutées sur les 825 références du catalogue, une écartée avant d'écrire du code.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-labelledby="compare-titre">
+          <table class="cmp">
+            <caption class="sr-only">Comparaison de trois méthodes de détection d'anomalies sur cinq critères, avec la décision retenue pour chacune.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Critère</th>
+                <th scope="col">Isolation Forest</th>
+                <th scope="col">Local Outlier Factor</th>
+                <th scope="col">One-Class SVM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Ce qu'elle repère</th>
+                <td>Points isolés à l'échelle du catalogue</td>
+                <td>Points isolés par rapport à leurs seuls voisins</td>
+                <td>Ce qui sort d'une frontière apprise</td></tr>
+              <tr><th scope="row">Recoupement avec l'ancienne méthode</th>
+                <td>23,64&nbsp;% <span class="cmp-note">le plus proche de ce que les équipes connaissent</span></td>
+                <td>7,94&nbsp;%</td>
+                <td>non mesuré</td></tr>
+              <tr><th scope="row">Temps de calcul mesuré</th>
+                <td>46,9&nbsp;ms</td>
+                <td>1,7&nbsp;ms <span class="cmp-note">27 fois plus rapide, à rebours de la théorie</span></td>
+                <td>non mesuré</td></tr>
+              <tr><th scope="row">Réglages à justifier</th>
+                <td>1 <span class="cmp-note">le taux d'anomalies annoncé</span></td>
+                <td>2</td>
+                <td>plusieurs, non triviaux</td></tr>
+              <tr><th scope="row">Sobriété</th>
+                <td colspan="2">Quelques dizaines de millisecondes, sans GPU ni modèle pré-entraîné</td>
+                <td>Réglage par essais successifs : coût cumulé sans commune mesure</td></tr>
+              <tr><th scope="row">Décision</th>
+                <td><b class="verdict keep">Retenue</b></td>
+                <td><b class="verdict hold">Conservée en piste</b></td>
+                <td><b class="verdict drop">Écartée avant implémentation</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="cmp-read"><b>Ce que la comparaison m'a appris.</b> J'ai retenu Isolation Forest parce qu'elle retrouve ce que l'analyse existante désignait déjà et qu'elle n'a qu'un seul réglage à défendre — pas parce qu'elle est rapide. Le chronomètre dit l'inverse de la théorie : sur 825 lignes, l'avantage de complexité d'Isolation Forest ne se vérifie pas. Je garde ce résultat et je le signale plutôt que de l'écarter parce qu'il dérange. Ensemble, les deux méthodes retenues font apparaître <b>41 articles au prix parfaitement normal mais au couple stock-ventes atypique</b>, totalement invisibles à l'analyse d'origine.</p>
+        <p class="cmp-links">
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p06-qualite-donnees-boutique">Le notebook et les livrables de cette comparaison</a>
+        </p>
+      </div>
+
+      <p class="veille-note reveal"><b>La veille ne s'arrête pas à ce constat : elle tourne.</b> Onze flux suivis au format OPML — versions de scikit-learn et de pandas, arXiv en apprentissage statistique, Real Python, KDnuggets, et quatre alertes déclenchées par sujet plutôt que par source. Un script sans aucune dépendance externe les interroge, filtre les entrées sur des mots-clés pondérés et produit un résumé daté. Une tâche automatique l'exécute tous les lundis à 8&nbsp;h. Une source pertinente refuse les requêtes automatisées : elle reste déclarée et suivie à la main, et le résumé le signale plutôt que de la masquer. Limite assumée : le filtrage est littéral, une méthode décrite avec un vocabulaire inattendu passe au travers — d'où la lecture directe d'arXiv en complément.</p>
     </div>
   </section>
 
@@ -388,7 +438,7 @@
           <p class="compact-tool">Python + ML</p>
           <h4>Qualité de données pour une boutique en ligne</h4>
           <p>Consolidation de trois sources (ERP, site web, table de liaison) pour une boutique de spiritueux, avec détection d'anomalies et analyse de rentabilité par référence. Repris dans un second temps pour une amélioration critique augmentée par l'IA : comparaison de trois méthodes de détection d'anomalies multivariées et ajout de tests de significativité statistique, avec traçabilité complète des choix et des essais.</p>
-          <p class="kpi">143 680€ de CA analysé · 19 anomalies stock/ventes invisibles à l'analyse de prix seule, détectées par Isolation Forest</p>
+          <p class="kpi">143 680€ de CA analysé · 41 anomalies stock/ventes invisibles à l'analyse du prix seul, révélées par deux méthodes multivariées comparées</p>
           <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p06-qualite-donnees-boutique" target="_blank" rel="noopener">Voir le code</a>
         </article>
 

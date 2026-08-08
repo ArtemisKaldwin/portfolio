@@ -994,3 +994,71 @@ body::after{
     radial-gradient(58% 44% at 68% 6%, rgba(224,213,239,.085), transparent 68%),
     radial-gradient(42% 32% at 22% 0%, rgba(170,93,96,.06), transparent 70%);
 }
+
+/* ============================================================================
+   Veille — le comparatif en tête-à-tête
+   ========================================================================== */
+.veille-compare{
+  margin-top:clamp(40px,6vh,72px);
+  padding:clamp(26px,3.4vw,44px);
+  border:1px solid var(--hairline-strong);
+  border-radius:clamp(20px,2.4vw,34px);
+  background:rgba(3,38,51,.34);
+}
+.veille-compare h3{
+  font:500 clamp(21px,2.5vw,31px)/1.2 var(--display);
+  margin:0 0 14px;color:var(--foam);
+}
+.veille-compare > p{color:var(--silt);max-width:76ch;margin:0 0 24px}
+
+/* le tableau défile seul si l'écran est étroit, et reste atteignable au clavier */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px}
+.table-scroll:focus-visible{outline:2px solid var(--coral);outline-offset:3px}
+
+table.cmp{border-collapse:collapse;width:100%;min-width:660px;font-size:14px}
+table.cmp caption{text-align:left}
+table.cmp th,table.cmp td{
+  text-align:left;vertical-align:top;
+  padding:13px 16px;
+  border-bottom:1px solid var(--hairline);
+}
+table.cmp thead th{
+  font:400 10px/1.4 var(--mono);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--foam);background:rgba(170,93,96,.16);
+  border-bottom:1px solid var(--hairline-strong);
+}
+table.cmp thead th:first-child{border-top-left-radius:12px}
+table.cmp thead th:last-child{border-top-right-radius:12px}
+table.cmp tbody th{
+  font:500 13.5px/1.45 var(--body);color:var(--foam);
+  width:23%;
+}
+table.cmp td{color:var(--silt);line-height:1.5}
+table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:0}
+.cmp-note{
+  display:block;margin-top:5px;
+  font:400 11px/1.45 var(--mono);color:var(--silt-dim);
+}
+/* la décision se lit en toutes lettres : jamais portée par la couleur seule */
+.verdict{
+  display:inline-block;border-radius:999px;padding:6px 13px;
+  font:400 10px/1.3 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid currentColor;
+}
+.verdict.keep{color:var(--coral)}
+.verdict.hold{color:var(--anemone)}
+.verdict.drop{color:var(--silt-dim)}
+
+.cmp-read{
+  margin:26px 0 0;color:var(--silt);max-width:80ch;
+  border-left:2px solid var(--coral);padding-left:20px;
+}
+.cmp-read b{color:var(--foam)}
+.cmp-links{margin:24px 0 0}
+
+.veille-note b{color:var(--foam)}
+
+@media (max-width:640px){
+  table.cmp{font-size:13px;min-width:600px}
+  .veille-compare{padding:22px 16px}
+}
