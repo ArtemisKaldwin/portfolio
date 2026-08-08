@@ -256,7 +256,7 @@
       <div class="section-head reveal">
         <p class="eyebrow"><span class="tick"></span>−900&thinsp;m &nbsp;/&nbsp; Bathyal</p>
         <h2>Projets</h2>
-        <p class="lede">Cinq preuves détaillées, présentées comme devant un client ou un recruteur, puis sept projets complémentaires qui élargissent le panorama d'outils.</p>
+        <p class="lede">Six preuves détaillées, présentées comme devant un client ou un recruteur, puis six projets complémentaires qui élargissent le panorama d'outils.</p>
       </div>
 
       <p class="tier-label reveal"><span class="tick"></span>Preuves phares</p>
@@ -264,7 +264,7 @@
       <!-- P12 -->
       <article class="proof reveal">
         <header class="proof-head">
-          <p class="proof-index">01<span>/05</span></p>
+          <p class="proof-index">01<span>/06</span></p>
           <div class="proof-title">
             <h3>Détection de faux billets par machine learning</h3>
             <p class="ctx">Mission pour l'ONCFM : construire un outil de classification vrai/faux billet à partir de mesures géométriques, livré sous forme de script réutilisable.</p>
@@ -298,7 +298,7 @@
       <!-- P4 -->
       <article class="proof reveal">
         <header class="proof-head">
-          <p class="proof-index">02<span>/05</span></p>
+          <p class="proof-index">02<span>/06</span></p>
           <div class="proof-title">
             <h3>Étude de sécurité alimentaire mondiale (données FAO)</h3>
             <p class="ctx">Analyser la disponibilité alimentaire mondiale pour comprendre pourquoi la sous-nutrition persiste malgré une production théoriquement suffisante.</p>
@@ -332,7 +332,7 @@
       <!-- P9 -->
       <article class="proof reveal">
         <header class="proof-head">
-          <p class="proof-index">03<span>/05</span></p>
+          <p class="proof-index">03<span>/06</span></p>
           <div class="proof-title">
             <h3>Analyse des ventes d'une librairie en ligne</h3>
             <p class="ctx">Croiser trois tables (clients, produits, transactions) pour identifier de vrais leviers commerciaux, en écartant les corrélations statistiquement significatives mais sans effet réel.</p>
@@ -366,7 +366,7 @@
       <!-- P11 -->
       <article class="proof reveal">
         <header class="proof-head">
-          <p class="proof-index">04<span>/05</span></p>
+          <p class="proof-index">04<span>/06</span></p>
           <div class="proof-title">
             <h3>Étude de marché export pour une filière avicole bio</h3>
             <p class="ctx">Identifier, parmi 125 pays, les marchés à cibler en priorité pour l'export d'une entreprise française de poulet bio premium face à un marché domestique saturé.</p>
@@ -400,7 +400,7 @@
       <!-- P10 -->
       <article class="proof reveal">
         <header class="proof-head">
-          <p class="proof-index">05<span>/05</span></p>
+          <p class="proof-index">05<span>/06</span></p>
           <div class="proof-title">
             <h3>Dashboard de pilotage des réclamations clients</h3>
             <p class="ctx">Projet mené en entreprise chez Orange France et présenté en CODIR. L'un des projets internes menés sur ces deux ans, choisi ici car partageable ; d'autres, dont un dashboard de prévention santé au travail, ne le sont pas pour des raisons de confidentialité des données. Centraliser environ 47 000 réclamations clients sur six mois pour piloter les délais et les coûts de traitement.</p>
@@ -430,17 +430,45 @@
         </footer>
       </article>
 
+      <!-- P6 — sujet de la Mission 1 -->
+      <article class="proof reveal">
+        <header class="proof-head">
+          <p class="proof-index">06<span>/06</span></p>
+          <div class="proof-title">
+            <h3>Qualité de données et détection d'anomalies pour un caviste en ligne</h3>
+            <p class="ctx">Consolider trois sources désynchronisées — un logiciel de gestion, l'export du site marchand et une table de correspondance — pour produire des indicateurs de chiffre d'affaires, de rotation et de marge sur lesquels on puisse décider. Projet repris un an plus tard pour une amélioration critique documentée, avec l'IA comme outil de travail et non comme rédacteur.</p>
+          </div>
+        </header>
+        <div class="proof-body">
+          <div class="proof-col">
+            <h4 class="mono-label">Données</h4>
+            <p>825 références côté gestion, 714 actives côté site. 13,45 % des lignes ne se rejoignent pas après jointure : une limite structurelle, chiffrée et assumée plutôt que masquée. Prix négatifs et doublons de référence corrigés en amont.</p>
+          </div>
+          <div class="proof-col">
+            <h4 class="mono-label">Démarche</h4>
+            <p>La première version ne repérait les valeurs aberrantes que sur le prix. Trois méthodes multivariées instruites, deux codées et exécutées, une écartée avant d'écrire du code. Réglage identique imposé aux deux pour que la comparaison soit équitable, temps de calcul mesurés et non estimés, corrélations validées par deux tests plutôt que lues sur une carte de chaleur.</p>
+          </div>
+          <div class="proof-col">
+            <h4 class="mono-label">Résultat clé</h4>
+            <p>41 articles au prix parfaitement normal mais au couple stock-ventes atypique, invisibles à l'analyse d'origine. Et une conclusion de la version initiale qui bascule : entre stock et prix d'achat, un premier test conclut à l'absence de lien, un second en trouve un fort et fiable.</p>
+          </div>
+        </div>
+        <ul class="stat-row">
+          <li class="stat"><b>41</b><span>Anomalies révélées par deux méthodes comparées</span></li>
+          <li class="stat"><b>23,64%</b><span>Recoupement retenu comme critère de décision</span></li>
+          <li class="stat"><b>94</b><span>Cellules exécutées, zéro erreur, en 5 secondes</span></li>
+          <li class="stat"><b>0€</b><span>Ni licence, ni infrastructure, ni prestataire</span></li>
+        </ul>
+        <footer class="proof-foot">
+          <p class="limits-line"><strong>Limites :</strong> le taux d'anomalies annoncé à l'algorithme est hérité de la méthode univariée — une hypothèse simplificatrice, explicitée. Sans vérité terrain, le recoupement entre méthodes ne dit pas laquelle a raison : ce sont des pistes d'investigation, pas des faits. Et la détection reste globale au catalogue, jamais par famille de produits.</p>
+          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p06-qualite-donnees-boutique" target="_blank" rel="noopener">Voir le code</a>
+          <a class="code-link" href="#veille">Le comparatif des trois méthodes</a>
+        </footer>
+      </article>
+
       <p class="tier-label reveal" style="margin-top:96px"><span class="tick"></span>Compléments</p>
 
       <div class="compact-grid">
-
-        <article class="compact reveal">
-          <p class="compact-tool">Python + ML</p>
-          <h4>Qualité de données pour une boutique en ligne</h4>
-          <p>Consolidation de trois sources (ERP, site web, table de liaison) pour une boutique de spiritueux, avec détection d'anomalies et analyse de rentabilité par référence. Repris dans un second temps pour une amélioration critique augmentée par l'IA : comparaison de trois méthodes de détection d'anomalies multivariées et ajout de tests de significativité statistique, avec traçabilité complète des choix et des essais.</p>
-          <p class="kpi">143 680€ de CA analysé · 41 anomalies stock/ventes invisibles à l'analyse du prix seul, révélées par deux méthodes multivariées comparées</p>
-          <a class="code-link" href="https://github.com/ArtemisKaldwin/data-analyst-projects/tree/main/p06-qualite-donnees-boutique" target="_blank" rel="noopener">Voir le code</a>
-        </article>
 
         <article class="compact reveal">
           <p class="compact-tool">KNIME</p>

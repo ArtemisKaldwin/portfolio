@@ -1062,3 +1062,33 @@ table.cmp tbody tr:last-child th,table.cmp tbody tr:last-child td{border-bottom:
   table.cmp{font-size:13px;min-width:600px}
   .veille-compare{padding:22px 16px}
 }
+
+/* ============================================================================
+   Fiches projets — onglets des trois volets
+   ========================================================================== */
+.proof-tabs{
+  display:flex;flex-wrap:wrap;gap:0;
+  border:1px solid var(--hairline-strong);border-radius:999px;
+  width:max-content;max-width:100%;overflow:hidden;
+  margin:clamp(18px,2.4vh,26px) 0 clamp(16px,2vh,22px);
+}
+.proof-tab{
+  appearance:none;background:none;border:0;cursor:pointer;
+  color:var(--silt-dim);
+  font:400 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;
+  padding:12px 20px;border-radius:999px;
+  transition:background .35s ease,color .35s ease;
+}
+.proof-tab[aria-selected="true"]{background:var(--coral);color:var(--abyss)}
+.proof-tab:hover[aria-selected="false"]{color:var(--foam)}
+.proof-tab:focus-visible{outline:2px solid var(--foam);outline-offset:-3px}
+
+/* un seul volet à la fois : la grille à trois colonnes n'a plus lieu d'être */
+.proof-body.is-tabbed{display:block}
+.proof-body.is-tabbed .proof-col{max-width:74ch}
+.proof-body.is-tabbed .proof-col[hidden]{display:none}
+
+@media (max-width:560px){
+  .proof-tabs{width:100%;justify-content:stretch}
+  .proof-tab{flex:1 1 auto;padding:12px 10px;letter-spacing:.1em}
+}

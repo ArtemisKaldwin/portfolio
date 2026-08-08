@@ -515,3 +515,71 @@
 
   build(); refresh();
 })();
+
+/* ============================================================================
+   Fiches projets — les trois volets deviennent des onglets.
+   Amélioration progressive : sans JS, les trois colonnes restent affichées.
+   ========================================================================== */
+(function(){
+  var cards = document.querySelectorAll('.proof .proof-body');
+  if (!cards.length) return;
+
+  Array.prototype.forEach.call(cards, function(cols, ci){
+    var panels = Array.prototype.slice.call(cols.querySelectorAll('.proof-col'));
+    if (panels.length < 2) return;
+
+    var tablist = document.createElement('div');
+    tablist.className = 'proof-tabs';
+    tablist.setAttribute('role','tablist');
+    tablist.setAttribute('aria-label','Volets de la fiche projet');
+
+    var tabs = panels.map(function(panel, i){
+      var label = panel.querySelector('.mono-label');
+      var name = label ? label.textContent.trim() : 'Volet ' + (i+1);
+      if (label) label.remove();                    // le titre passe dans l'onglet
+
+      var id = 'pf-' + ci + '-' + i;
+      panel.id = id + '-panel';
+      panel.setAttribute('role','tabpanel');
+      panel.setAttribute('aria-labelledby', id);
+      panel.hidden = i !== 0;
+
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'proof-tab';
+      b.id = id;
+      b.textContent = name;
+      b.setAttribute('role','tab');
+      b.setAttribute('aria-controls', panel.id);
+      b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      b.tabIndex = i === 0 ? 0 : -1;
+      tablist.appendChild(b);
+      return b;
+    });
+
+    function select(i){
+      tabs.forEach(function(b, k){
+        var on = k === i;
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        b.tabIndex = on ? 0 : -1;
+        panels[k].hidden = !on;
+      });
+    }
+
+    tabs.forEach(function(b, i){
+      b.addEventListener('click', function(){ select(i); });
+      b.addEventListener('keydown', function(e){
+        var n = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i+1) % tabs.length;
+        if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   n = (i-1+tabs.length) % tabs.length;
+        if (e.key === 'Home') n = 0;
+        if (e.key === 'End')  n = tabs.length - 1;
+        if (n === null) return;
+        e.preventDefault(); select(n); tabs[n].focus();
+      });
+    });
+
+    cols.parentNode.insertBefore(tablist, cols);
+    cols.classList.add('is-tabbed');
+  });
+})();
