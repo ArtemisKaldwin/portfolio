@@ -388,7 +388,17 @@
 
   function step(){ return 360/data.length; }
   function pace(){ return mode==='exp' ? 0.85 : 0.5; }   // course de scroll par cran
-  function sizeZone(){ sec.style.height = ((data.length-1)*pace()+1)*100 + 'vh'; }
+
+  // La rotation n'est pilotée par le scroll que si la scène est épinglée.
+  // En dessous, la section redevient un bloc normal : la roue ne bouge plus
+  // toute seule, on change de cran en cliquant une année ou le sélecteur.
+  var pinnedMQ = window.matchMedia('(min-width:1025px)');
+  function pinned(){ return pinnedMQ.matches; }
+
+  function sizeZone(){
+    if (pinned()) sec.style.height = ((data.length-1)*pace()+1)*100 + 'vh';
+    else sec.style.removeProperty('height');
+  }
 
   function esc(t){ var d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
 
@@ -455,13 +465,26 @@
 
   function progress(){
     var travel=sec.offsetHeight-window.innerHeight;
-    return Math.min(1, Math.max(0, (window.scrollY-sec.offsetTop)/Math.max(1,travel)));
+    if (travel < window.innerHeight * 0.5) return null;   // course trop courte : on ne pilote pas
+    return Math.min(1, Math.max(0, (window.scrollY-sec.offsetTop)/travel));
   }
-  function onScroll(){ render(progress()); }
+  function onScroll(){
+    if (!pinned()) return;
+    var p = progress();
+    if (p !== null) render(p);
+  }
+
+  // position d'un cran, exprimée en avancement 0 → 1
+  function posOf(i){ return data.length > 1 ? i/(data.length-1) : 0; }
 
   function jumpTo(i){
-    var travel=sec.offsetHeight-window.innerHeight;
-    window.scrollTo({top: sec.offsetTop + travel*(i/(data.length-1)), behavior:'smooth'});
+    i = Math.min(data.length-1, Math.max(0, i));
+    if (pinned()) {
+      var travel=sec.offsetHeight-window.innerHeight;
+      window.scrollTo({top: sec.offsetTop + travel*posOf(i), behavior:'smooth'});
+    } else {
+      render(posOf(i));            // pas de scroll : on tourne la roue sur place
+    }
   }
 
   function setMode(m){
@@ -471,14 +494,24 @@
     bExp.setAttribute('aria-pressed', m==='exp');
     bForm.setAttribute('aria-pressed', m==='form');
     build();
-    window.scrollTo({top: sec.offsetTop, behavior:'auto'});
+    if (pinned()) { window.scrollTo({top: sec.offsetTop, behavior:'auto'}); }
     render(0);
   }
   bExp.addEventListener('click', function(){ setMode('exp'); });
   bForm.addEventListener('click', function(){ setMode('form'); });
 
   window.addEventListener('scroll', function(){ requestAnimationFrame(onScroll); }, {passive:true});
-  window.addEventListener('resize', function(){ sizeZone(); onScroll(); });
+  window.addEventListener('resize', function(){ sizeZone(); refresh(); });
 
-  build(); onScroll();
+  // au franchissement du seuil, on remet la scène dans un état cohérent
+  function onLayoutChange(){ sizeZone(); idx=-1; refresh(); }
+  if (pinnedMQ.addEventListener) pinnedMQ.addEventListener('change', onLayoutChange);
+  else if (pinnedMQ.addListener) pinnedMQ.addListener(onLayoutChange);
+
+  function refresh(){
+    if (pinned()) { var p=progress(); render(p === null ? 0 : p); }
+    else { render(posOf(Math.max(0, idx))); }
+  }
+
+  build(); refresh();
 })();
