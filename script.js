@@ -7,7 +7,8 @@
 (function () {
   'use strict';
 
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduceMotionMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reduceMotion = reduceMotionMQ.matches;
   var root = document.documentElement;
 
   // Profondeur courante, 0 en surface → 1 dans l'abysse.
@@ -397,8 +398,10 @@
   // La rotation n'est pilotée par le scroll que si la scène est épinglée.
   // En dessous, la section redevient un bloc normal : la roue ne bouge plus
   // toute seule, on change de cran en cliquant une année ou le sélecteur.
+  // Une préférence système « moins d'animations » emprunte ce même repli :
+  // rien n'est perdu, seule la rotation au défilement disparaît.
   var pinnedMQ = window.matchMedia('(min-width:1025px)');
-  function pinned(){ return pinnedMQ.matches; }
+  function pinned(){ return pinnedMQ.matches && !reduceMotion; }
 
   function sizeZone(){
     if (pinned()) sec.style.height = ((data.length-1)*pace()+1)*100 + 'vh';
@@ -512,6 +515,10 @@
   function onLayoutChange(){ sizeZone(); idx=-1; refresh(); }
   if (pinnedMQ.addEventListener) pinnedMQ.addEventListener('change', onLayoutChange);
   else if (pinnedMQ.addListener) pinnedMQ.addListener(onLayoutChange);
+
+  function onMotionChange(e){ reduceMotion = e.matches; onLayoutChange(); }
+  if (reduceMotionMQ.addEventListener) reduceMotionMQ.addEventListener('change', onMotionChange);
+  else if (reduceMotionMQ.addListener) reduceMotionMQ.addListener(onMotionChange);
 
   function refresh(){
     if (pinned()) { var p=progress(); render(p === null ? 0 : p); }
