@@ -116,7 +116,7 @@
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     var w = 0, h = 0;
     var particles = [];
-    var COUNT = 0;   // orbes retirées : elles faisaient aquarium. Restent les puits de lumière.
+    var COUNT = 26;  // bioluminescence : des points, pas des bulles. Voir seed() et render().
     var mouse = { x: 0, y: 0 };
     var eased = { x: 0, y: 0 };
     var running = true;
@@ -149,12 +149,14 @@
         particles.push({
           x: Math.random(),
           y: Math.random(),
-          r: 0.5 + Math.pow(Math.random(), 3.2) * 3.4,   // beaucoup de fines, quelques grosses
-          speed: 0.000055 + Math.random() * 0.00019,
+          r: 0.42 + Math.pow(Math.random(), 2.2) * 0.95,  // des points ; le plus gros fait 1,4
+          speed: 0.000042 + Math.random() * 0.00013,
           sway: 0.25 + Math.random() * 0.9,
           phase: Math.random() * Math.PI * 2,
           depth: Math.random(),                       // 0 = proche, 1 = lointain
-          alpha: 0.16 + Math.random() * 0.5,
+          alpha: 0.09 + Math.random() * 0.21,   // moitié de l'ancien maximum
+          pulse: 0.00018 + Math.random() * 0.00042,   // chacune respire à son rythme
+          pulsePhase: Math.random() * Math.PI * 2,
           tint: sprites[(Math.random() * sprites.length) | 0]
         });
       }
@@ -226,9 +228,11 @@
       ctx.clearRect(0, 0, w, h);
       shafts(time);
 
-      // Plus on descend, moins il y a de matière en suspension et moins elle brille
-      var visible = Math.round(COUNT * (1 - state.dive * 0.55));
-      var luminosity = 1 - state.dive * 0.45;
+      /* La lumière du jour s'éteint avec la profondeur — c'est le rôle de shafts().
+         Celle-ci fait l'inverse : sous la limite photique, la seule lumière restante
+         est produite par ce qui vit là. Discrète en surface, présente en bas. */
+      var visible = COUNT;
+      var luminosity = 0.62 + state.dive * 0.50;
 
       eased.x += (mouse.x - eased.x) * 0.045;
       eased.y += (mouse.y - eased.y) * 0.045;
@@ -240,9 +244,10 @@
           + Math.sin(time * 0.00013 * p.sway + p.phase) * 22 * p.sway
           + eased.x * 26 * parallax;
         var y = p.y * h + eased.y * 16 * parallax;
-        var size = p.r * (1.6 - p.depth * 0.6) * 3.4;
+        var size = p.r * (1.5 - p.depth * 0.5) * 5.2;   // moitié de l'ancienne taille
+        var breath = 0.66 + 0.34 * Math.sin(time * p.pulse + p.pulsePhase);
 
-        ctx.globalAlpha = p.alpha * luminosity * (1 - p.depth * 0.45);
+        ctx.globalAlpha = p.alpha * luminosity * breath * (1 - p.depth * 0.4);
         ctx.drawImage(p.tint, x - size / 2, y - size / 2, size, size);
       }
       ctx.globalAlpha = 1;
