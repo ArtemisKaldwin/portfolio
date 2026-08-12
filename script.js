@@ -398,10 +398,8 @@
   // La rotation n'est pilotée par le scroll que si la scène est épinglée.
   // En dessous, la section redevient un bloc normal : la roue ne bouge plus
   // toute seule, on change de cran en cliquant une année ou le sélecteur.
-  // Une préférence système « moins d'animations » emprunte ce même repli :
-  // rien n'est perdu, seule la rotation au défilement disparaît.
   var pinnedMQ = window.matchMedia('(min-width:1025px)');
-  function pinned(){ return pinnedMQ.matches && !reduceMotion; }
+  function pinned(){ return pinnedMQ.matches; }
 
   function sizeZone(){
     if (pinned()) sec.style.height = ((data.length-1)*pace()+1)*100 + 'vh';
@@ -425,8 +423,9 @@
       r.setAttribute('x2',CX+ux*(R-30)); r.setAttribute('y2',CY+uy*(R-30));
       r.setAttribute('stroke','rgba(172,122,153,.13)'); r.setAttribute('stroke-width','1'); g.appendChild(r);
       var tg=document.createElementNS(NS,'g');
-      tg.setAttribute('transform','translate('+(CX+ux*(R+46))+' '+(CY+uy*(R+46))+')');
-      tg.dataset.upright='1';
+      var baseTf='translate('+(CX+ux*(R+46))+' '+(CY+uy*(R+46))+')';
+      tg.setAttribute('transform', baseTf);
+      tg.dataset.upright='1'; tg.dataset.base=baseTf;
       var t=document.createElementNS(NS,'text');
       t.setAttribute('text-anchor','middle'); t.setAttribute('dominant-baseline','middle');
       t.setAttribute('class','pk-ylab'); t.dataset.i=i; t.textContent=d.y;
@@ -452,11 +451,11 @@
     var rot = MARK - p*(n-1)*st;
     spin.setAttribute('transform','rotate('+rot+' '+CX+' '+CY+')');
     Array.prototype.forEach.call(spin.querySelectorAll('[data-upright]'), function(g){
-      var base=g.getAttribute('transform').split('rotate')[0].trim();
+      var base=g.dataset.base || g.getAttribute('transform').split('rotate')[0].trim();
       g.setAttribute('transform', base+' rotate('+(-rot)+')');
     });
     var i=Math.min(n-1, Math.max(0, Math.round(p*(n-1))));
-    if (i!==idx){
+    if (i!==idx || spin.querySelectorAll('.pk-notch').length!==n){
       idx=i;
       Array.prototype.forEach.call(spin.querySelectorAll('.pk-notch'), function(e){ e.classList.toggle('on', +e.dataset.i===i); });
       Array.prototype.forEach.call(spin.querySelectorAll('.pk-ylab'), function(e){ e.classList.toggle('on', +e.dataset.i===i); });
@@ -496,7 +495,7 @@
   }
 
   function setMode(m){
-    if (m===mode) return;
+    if (m===mode && spin.querySelectorAll('.pk-notch').length===data.length) return;
     mode=m; data=(m==='exp')?EXP:FORM; idx=-1;
     sec.style.setProperty('--pk-accent', m==='exp' ? 'var(--coral)' : 'var(--anemone)');
     bExp.setAttribute('aria-pressed', m==='exp');
@@ -515,10 +514,6 @@
   function onLayoutChange(){ sizeZone(); idx=-1; refresh(); }
   if (pinnedMQ.addEventListener) pinnedMQ.addEventListener('change', onLayoutChange);
   else if (pinnedMQ.addListener) pinnedMQ.addListener(onLayoutChange);
-
-  function onMotionChange(e){ reduceMotion = e.matches; onLayoutChange(); }
-  if (reduceMotionMQ.addEventListener) reduceMotionMQ.addEventListener('change', onMotionChange);
-  else if (reduceMotionMQ.addListener) reduceMotionMQ.addListener(onMotionChange);
 
   function refresh(){
     if (pinned()) { var p=progress(); render(p === null ? 0 : p); }
